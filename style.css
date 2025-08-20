@@ -1,0 +1,37 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('assets/images/bg_black.png');
+    background-repeat: repeat;
+    background-size: 256px;
+    overflow-y: hidden;
+}
+
+@font-face {
+    font-family: 'Tiny5';
+    src: url('assets/fonts/Tiny5-Regular.woff2') format('woff2'),
+        url('assets/fonts/Tiny5-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Press Start 2P';
+    src: url('assets/fonts/PressStart2P-Regular.woff2') format('woff2'),
+        url('assets/fonts/PressStart2P-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Tiny5';
+    font-size: 32px;
+    image-rendering: pixelated;
+}
