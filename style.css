@@ -663,7 +663,7 @@ body {
 }
 .d_rleg {
     background-image: url('assets/images/limbs_defend/leg_right.png');
-    clip-path: polygon(27% 50%, 57% 50%, 50% 100%, 24% 100%);
+    clip-path: polygon(27% 50%, 52% 50%, 45% 100%, 24% 100%);
 }
 
 .a_limb_inactive {
@@ -701,7 +701,7 @@ body {
 }
 .a_rleg {
     background-image: url('assets/images/limbs_attack/leg_right.png');
-    clip-path: polygon(27% 50%, 57% 50%, 50% 100%, 24% 100%);
+    clip-path: polygon(27% 50%, 52% 50%, 45% 100%, 24% 100%);
 }
 
 .limb_shown {

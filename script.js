@@ -11,12 +11,12 @@ let fighters_list = [
     },
     {
         name : 'Bootleg knight',
-        hp : 70,
+        hp : 90,
         image : "url('assets/images/fighters/knight.jpg')"
     },
     {
         name : 'Neil Breen',
-        hp : 200,
+        hp : 150,
         image : "url('assets/images/fighters/neil.png')"
     },
     {
@@ -36,12 +36,12 @@ let fighters_list = [
     },
     {
         name : 'Vagabond',
-        hp : 40,
+        hp : 75,
         image : "url('assets/images/fighters/bum.png')"
     },
     {
         name : 'Donald Trump',
-        hp : 180,
+        hp : 140,
         image : "url('assets/images/fighters/trump.jpg')"
     },
     {
@@ -51,7 +51,7 @@ let fighters_list = [
     },
     {
         name : 'Uwe Boll',
-        hp : 160,
+        hp : 150,
         image : "url('assets/images/fighters/uwe.jpg')"
     },
     {
@@ -81,7 +81,7 @@ let fighters_list = [
     },
     {
         name : 'Sam Hyde',
-        hp : 180,
+        hp : 150,
         image : "url('assets/images/fighters/sam.png')"
     },
     {
@@ -91,7 +91,7 @@ let fighters_list = [
     },
     {
         name : 'Roach King',
-        hp : 200,
+        hp : 130,
         image : "url('assets/images/fighters/asmon.jpg')"
     },
     {
@@ -106,7 +106,7 @@ let fighters_list = [
     },
     {
         name : 'The Rock',
-        hp : 190,
+        hp : 150,
         image : "url('assets/images/fighters/dwayne.jpg')"
     },
     {
@@ -116,12 +116,12 @@ let fighters_list = [
     },
     {
         name : 'Walter White',
-        hp : 140,
+        hp : 100,
         image : "url('assets/images/fighters/walter.jpg')"
     },
     {
         name : 'Pope Francis',
-        hp : 50,
+        hp : 75,
         image : "url('assets/images/fighters/pope.jpg')"
     },
 ]
