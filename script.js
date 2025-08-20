@@ -267,7 +267,7 @@ function handle_attack()
     let e_crit = 1 + Math.round(Math.random() * 0.54);
     let p_crit = 1 + Math.round(Math.random() * 0.54);
 
-    let e_mul = Math.random();
+    let e_mul = Math.random() * 0.7 + 0.3;
     let p_mul = get_multiplier(slider_dist);
 
     if (!(defending.includes(e_attacking)) || e_crit <= 1.1)
@@ -275,9 +275,12 @@ function handle_attack()
         p_hp -= limb_list[e_attacking] * e_crit * e_mul;
         if (p_hp < 0)
         {
-            p_hp = 0;
+            p_hp_bar[0].style.width = `0%`;
         }
-        p_hp_bar[0].style.width = `${100 * (p_hp / p_ihp)}%`;
+        else
+        {
+            p_hp_bar[0].style.width = `${100 * (p_hp / p_ihp)}%`;
+        }
         let dmg = document.createElement('div');
         if (e_crit <= 1.1)
         {
@@ -308,9 +311,12 @@ function handle_attack()
         e_hp -= limb_list[attacking[0]] * p_crit * p_mul;
         if (e_hp < 0)
         {
-            e_hp = 0;
+            e_hp_bar[0].style.width = `0%`;
         }
-        e_hp_bar[0].style.width = `${100 * (e_hp / e_ihp)}%`;
+        else
+        {
+            e_hp_bar[0].style.width = `${100 * (e_hp / e_ihp)}%`;
+        }
         let dmg = document.createElement('div');
         if (p_crit <= 1.1)
         {
@@ -338,12 +344,12 @@ function handle_attack()
     }
 
     
-    if (p_hp == 0)
+    if (p_hp <= 0 && p_hp <= e_hp)
     {
         player_dead();
         return
     }
-    if (e_hp == 0)
+    if (e_hp <= 0 && e_hp < p_hp)
     {
         enemy_dead();
     }

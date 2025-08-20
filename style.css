@@ -609,12 +609,17 @@ body {
 .player_body {
     width: 100%;
     height: 48%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
 }
 
 .player_body_cont {
     position: relative;
+    aspect-ratio: calc(472 / 432);
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     background-image: url('assets/images/HEALTH1.png');
     background-position: center;
     background-size: contain;
@@ -624,12 +629,17 @@ body {
 .enemy_body {
     width: 100%;
     height: 48%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
 }
 
 .enemy_body_cont {
     position: relative;
+    aspect-ratio: calc(472 / 432);
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     background-image: url('assets/images/HEALTH1.png');
     background-position: center;
     background-size: contain;
@@ -736,7 +746,7 @@ body {
     width: 100%;
     height: 48%;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
     background-image: url('assets/images/splatter.png');
     background-position: center;
     opacity: 0.01;
