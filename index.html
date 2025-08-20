@@ -2,12 +2,132 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0, user-scalable=no">
     <title>Fighting club</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
 </head>
 <body>
-    
+    <section class="basic_size registration shown">
+        <div class="game_logo"></div>
+        <div class="blue_window_generic name_field_window">
+            <div class="name_field_title"></div>
+            <div class="name_field_container">
+                <input class="name_field" type="text" maxlength="18">
+                <button class="name_button" onclick="set_name(this.previousElementSibling.value); update_cards(); set_fighter()">OK</button>
+            </div>
+            <div class="name_window_bit"></div>
+        </div>
+    </section>
+    <section class="basic_size fighter hidden">
+        <div class="fighter_cont">
+            <div class="fighter_upper">
+                <div class="blue_window_generic cur_fighter">
+
+                    <div class="name_window_bit"></div>
+                </div>
+                <div class="blue_window_generic fighter_menu">
+                    <div class="fighter_menu_title"></div>
+                    <button class="rename_button" onclick="set_page(0)">change nickname</button>
+                    <div class="win_loss_container">
+                        <div class="win_container">
+                            <div class="win_title">WINS:</div>
+                            <div class="win_list"></div>
+                        </div>
+                        <div class="loss_container">
+                            <div class="loss_title">LOSSES:</div>
+                            <div class="loss_list"></div>
+                        </div>
+                    </div>
+                    <button class="fight_button" onclick="update_stats(); set_page(2)"><img class="fight_button_title" src="assets/images/fight_button.png" alt="fight"></button>
+                </div>
+            </div>
+            <div class="blue_window_generic catalogue_window">
+                <div class="catalogue">
+                    <div class="fighter_card f1" onclick="set_fighter_num(0); set_fighter()"><div class="fighter_card_bit"></div></div>
+                    <div class="fighter_card f2" onclick="set_fighter_num(1); set_fighter()"><div class="fighter_card_bit"></div></div>
+                    <div class="fighter_card f3" onclick="set_fighter_num(2); set_fighter()"><div class="fighter_card_bit"></div></div>
+                    <div class="fighter_card f4" onclick="set_fighter_num(3); set_fighter()"><div class="fighter_card_bit"></div></div>
+                    <div class="fighter_card f5" onclick="set_fighter_num(4); set_fighter()"><div class="fighter_card_bit"></div></div>
+                    <div class="fighter_card f6" onclick="set_fighter_num(5); set_fighter()"><div class="fighter_card_bit"></div></div>
+                    <div class="fighter_card f7" onclick="set_fighter_num(6); set_fighter()"><div class="fighter_card_bit"></div></div>
+                    <div class="fighter_card f8" onclick="set_fighter_num(7); set_fighter()"><div class="fighter_card_bit"></div></div>
+                    <div class="fighter_card f9" onclick="set_fighter_num(8); set_fighter()"><div class="fighter_card_bit"></div></div>
+                    <div class="fighter_card f10" onclick="set_fighter_num(9); set_fighter()"><div class="fighter_card_bit"></div></div>
+                    <div class="fighter_card f11" onclick="set_fighter_num(10); set_fighter()"><div class="fighter_card_bit"></div></div>
+                    <div class="fighter_card f12" onclick="set_fighter_num(11); set_fighter()"><div class="fighter_card_bit"></div></div>
+                    <div class="fighter_card f13" onclick="set_fighter_num(12); set_fighter()"><div class="fighter_card_bit"></div></div>
+                    <div class="fighter_card f14" onclick="set_fighter_num(13); set_fighter()"><div class="fighter_card_bit"></div></div>
+                    <div class="fighter_card f15" onclick="set_fighter_num(14); set_fighter()"><div class="fighter_card_bit"></div></div>
+                    <div class="fighter_card f16" onclick="set_fighter_num(15); set_fighter()"><div class="fighter_card_bit"></div></div>
+                    <div class="fighter_card f17" onclick="set_fighter_num(16); set_fighter()"><div class="fighter_card_bit"></div></div>
+                    <div class="fighter_card f18" onclick="set_fighter_num(17); set_fighter()"><div class="fighter_card_bit"></div></div>
+                    <div class="fighter_card f19" onclick="set_fighter_num(18); set_fighter()"><div class="fighter_card_bit"></div></div>
+                    <div class="fighter_card f20" onclick="set_fighter_num(19); set_fighter()"><div class="fighter_card_bit"></div></div>
+                    <div class="fighter_card f21" onclick="set_fighter_num(20); set_fighter()"><div class="fighter_card_bit"></div></div>
+                    <div class="fighter_card f22" onclick="set_fighter_num(21); set_fighter()"><div class="fighter_card_bit"></div></div>
+                    <div class="fighter_card f23" onclick="set_fighter_num(22); set_fighter()"><div class="fighter_card_bit"></div></div>
+                    <div class="fighter_card f24" onclick="set_fighter_num(23); set_fighter()"><div class="fighter_card_bit"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="basic_size battle hidden">
+        <div class="battle_top">
+            <div class="player_health">
+                <div class="player_name">foe1</div>
+                <div class="player_health_bar">
+                    <div class="player_hp_cont">
+                        <div class="player_hp"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="vs"></div>
+            <div class="enemy_health">
+                <div class="enemy_name">foe2</div>
+                <div class="enemy_health_bar">
+                    <div class="enemy_hp_cont">
+                        <div class="enemy_hp"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="battle_display">
+            <div class="player_display">
+                <div class="blue_window_generic player_avatar"><div class="name_window_bit"></div></div>
+                <div class="blue_window_generic player_body">
+                    <div class="player_body_cont">
+                        <div class="limb_hidden limb d d_head" onclick="select_defense(0); update_limbs()"></div>
+                        <div class="limb_hidden limb d d_torso" onclick="select_defense(1); update_limbs()"></div>
+                        <div class="limb_hidden limb d d_larm" onclick="select_defense(2); update_limbs()"></div>
+                        <div class="limb_hidden limb d d_rarm" onclick="select_defense(3); update_limbs()"></div>
+                        <div class="limb_hidden limb d d_lleg" onclick="select_defense(4); update_limbs()"></div>
+                        <div class="limb_hidden limb d d_rleg" onclick="select_defense(5); update_limbs()"></div>
+                    </div>
+                </div>
+                <div class="splatter p_splatter"></div>
+            </div>
+            <button class="battle_button" onclick="handle_battle_button()"><img class="attack_button" src="assets/images/attack.png" alt="attack"></button>
+            <div class="enemy_display">
+                <div class="blue_window_generic enemy_avatar"><div class="name_window_bit"></div></div>
+                <div class="blue_window_generic enemy_body">
+                    <div class="enemy_body_cont">
+                        <div class="limb_hidden limb a a_head" onclick="select_attack(0); update_limbs()"></div>
+                        <div class="limb_hidden limb a a_torso" onclick="select_attack(1); update_limbs()"></div>
+                        <div class="limb_hidden limb a a_larm" onclick="select_attack(2); update_limbs()"></div>
+                        <div class="limb_hidden limb a a_rarm" onclick="select_attack(3); update_limbs()"></div>
+                        <div class="limb_hidden limb a a_lleg" onclick="select_attack(4); update_limbs()"></div>
+                        <div class="limb_hidden limb a a_rleg" onclick="select_attack(5); update_limbs()"></div>
+                    </div>
+                </div>
+                <div class="splatter e_splatter"></div>
+            </div>
+        </div>
+        <div class="battle_exit blue_window_generic hidden_down">
+            <div class="w"></div>
+            <div class="l"></div>
+            <button class="exit_button" onclick="battle_exit(); set_page(1);"><img class="exit" src="assets/images/exit.png" alt="exit"></button>
+        </div>
+    </section>
 </body>
 </html>
