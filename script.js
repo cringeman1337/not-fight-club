@@ -436,3 +436,11 @@ function set_page(num)
     current_page = num;
     update_pages();
 }
+
+// function handle_page_update()
+// {
+//     if (!(localStorage.getItem('page_num') == null))
+//     {
+//         set_page(localStorage.getItem('page_num'));
+//     }
+// }
