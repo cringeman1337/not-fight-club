@@ -133,6 +133,14 @@ let limb_list = {
     '4' : 15,
     '5' : 15
 }
+let limb_names = {
+    '0' : 'head',
+    '1' : 'torso',
+    '2' : 'left arm',
+    '3' : 'right arm',
+    '4' : 'left leg',
+    '5' : 'right leg'
+}
 let fighters = document.getElementsByClassName('fighter_card');
 let fighters_size = 24;
 let selected_fighter = 6;
@@ -226,7 +234,19 @@ function handle_attack()
         }
         dmg.classList.add('damage');
         dmg.style.animationName = 'damage_motion';
-        document.getElementsByClassName('player_health')[0].appendChild(dmg);
+        document.getElementsByClassName('player_hp')[0].appendChild(dmg);
+
+        let log = document.createElement('div');
+        log.classList.add('log_record');
+        log.innerHTML = `- <span class="log_record_l">${fighters_list[current_enemy].name}</span> hit <span class="log_record_w">${document.getElementsByClassName('player_name')[0].innerHTML}</span> in the ${limb_names[e_attacking]} and dealt ${limb_list[e_attacking] * e_crit} damage`;
+        document.getElementsByClassName('log')[0].appendChild(log);
+    }
+    else
+    {
+        let log = document.createElement('div');
+        log.classList.add('log_record');
+        log.innerHTML = `- <span class="log_record_l">${fighters_list[current_enemy].name}</span> tried to hit <span class="log_record_w">${document.getElementsByClassName('player_name')[0].innerHTML}</span> in the ${limb_names[e_attacking]} but faced defense`;
+        document.getElementsByClassName('log')[0].appendChild(log);
     }
     if (!(e_defending.includes(attacking[0])))
     {
@@ -247,7 +267,19 @@ function handle_attack()
         }
         dmg.classList.add('damage');
         dmg.style.animationName = 'damage_motion';
-        document.getElementsByClassName('enemy_health')[0].appendChild(dmg);
+        document.getElementsByClassName('enemy_hp')[0].appendChild(dmg);
+
+        let log = document.createElement('div');
+        log.classList.add('log_record');
+        log.innerHTML = `- <span class="log_record_w">${document.getElementsByClassName('player_name')[0].innerHTML}</span> hit <span class="log_record_l">${fighters_list[current_enemy].name}</span> in the ${limb_names[attacking[0]]} and dealt ${limb_list[attacking[0]] * p_crit} damage`;
+        document.getElementsByClassName('log')[0].appendChild(log);
+    }
+    else
+    {
+        let log = document.createElement('div');
+        log.classList.add('log_record');
+        log.innerHTML = `- <span class="log_record_w">${document.getElementsByClassName('player_name')[0].innerHTML}</span> tried to hit <span class="log_record_l">${fighters_list[current_enemy].name}</span> in the ${limb_names[attacking[0]]} but faces defense`;
+        document.getElementsByClassName('log')[0].appendChild(log);
     }
 
     
@@ -273,6 +305,11 @@ function enemy_dead()
     record.innerHTML = fighters_list[current_enemy].name;
     record.classList.add('win_record');
     document.getElementsByClassName('win_list')[0].appendChild(record);
+
+    let log = document.createElement('div');
+    log.classList.add('log_record_w');
+    log.innerHTML = `${fighters_list[current_enemy].name} is dead! What a loser!`;
+    document.getElementsByClassName('log')[0].appendChild(log);
 }
 
 function player_dead()
@@ -286,6 +323,11 @@ function player_dead()
     record.innerHTML = fighters_list[current_enemy].name;
     record.classList.add('loss_record');
     document.getElementsByClassName('loss_list')[0].appendChild(record);
+
+    let log = document.createElement('div');
+    log.classList.add('log_record_l');
+    log.innerHTML = `${document.getElementsByClassName('player_name')[0].innerHTML} is dead! What a loser!`;
+    document.getElementsByClassName('log')[0].appendChild(log);
 }
 
 function select_defense(n)
@@ -381,6 +423,10 @@ function update_stats()
     e_hp_bar[0].style.width = `100%`;
     document.getElementsByClassName('w')[0].classList.remove('result_hide');
     document.getElementsByClassName('l')[0].classList.remove('result_hide');
+
+    document.getElementsByClassName('log')[0].innerHTML = '';
+    document.getElementsByClassName('player_hp')[0].innerHTML = '';
+    document.getElementsByClassName('enemy_hp')[0].innerHTML = '';
 }
 
 function set_fighter_num(n)
