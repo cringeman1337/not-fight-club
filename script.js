@@ -60,7 +60,7 @@ let fighters_list = [
         image : "url('assets/images/fighters/jesus.png')"
     },
     {
-        name : 'Harold',
+        name : 'Andras Arato',
         hp : 75,
         image : "url('assets/images/fighters/harold.jpg')"
     },
@@ -169,7 +169,56 @@ let player_splatter = document.getElementsByClassName('p_splatter');
 let enemy_splatter = document.getElementsByClassName('e_splatter');
 
 
+let slider_direction = 2;
+let slider = document.getElementsByClassName('slider_bar');
+let slider_dist = 50;
+let cooldown = 0;
 
+
+
+
+function turn_slider()
+{
+    slider_direction = -slider_direction;
+}
+
+function step_slider()
+{
+    slider_dist += slider_direction
+    slider[0].style.left = `calc(${slider_dist}% - 4px)`;
+}
+
+function get_multiplier(x)
+{
+    return 1 / (4 * (8 * ((x - 50)/50)**2 + 0.5)**2);
+}
+
+function handle_slider()
+{
+    if (cooldown <= 0)
+    {
+        slider[0].style.animationName = '';
+        if (slider_dist == 0)
+        {
+            turn_slider();
+            step_slider();
+        }
+        else if (slider_dist == 100)
+        {
+            turn_slider();
+            step_slider();
+        }
+        else
+        {
+            step_slider();
+        }
+    }
+    cooldown -= 1;
+}
+
+setInterval(() => {
+    handle_slider()
+}, 10);
 
 
 
@@ -200,6 +249,9 @@ function reset_body_charts()
 
 function handle_attack()
 {
+    cooldown = 100;
+    slider[0].style.animationName = 'slider_flicker';
+
     let e_attacking = Math.floor(Math.random() * (5 + 1));
     let e_d1 = Math.floor(Math.random() * (5 + 1));
     let e_d2 = Math.floor(Math.random() * (5 + 1));
@@ -215,9 +267,12 @@ function handle_attack()
     let e_crit = 1 + Math.round(Math.random() * 0.54);
     let p_crit = 1 + Math.round(Math.random() * 0.54);
 
-    if (!(defending.includes(e_attacking)))
+    let e_mul = Math.random();
+    let p_mul = get_multiplier(slider_dist);
+
+    if (!(defending.includes(e_attacking)) || e_crit <= 1.1)
     {
-        p_hp -= limb_list[e_attacking] * e_crit;
+        p_hp -= limb_list[e_attacking] * e_crit * e_mul;
         if (p_hp < 0)
         {
             p_hp = 0;
@@ -226,11 +281,11 @@ function handle_attack()
         let dmg = document.createElement('div');
         if (e_crit <= 1.1)
         {
-            dmg.innerHTML = `-${limb_list[e_attacking]}`;
+            dmg.innerHTML = `-${Math.round(limb_list[e_attacking] * e_mul)}`;
         }
         else
         {
-            dmg.innerHTML = `CRIT! -${limb_list[e_attacking] * e_crit}`;
+            dmg.innerHTML = `CRIT! -${Math.round(limb_list[e_attacking] * e_crit * e_mul)}`;
         }
         dmg.classList.add('damage');
         dmg.style.animationName = 'damage_motion';
@@ -238,7 +293,7 @@ function handle_attack()
 
         let log = document.createElement('div');
         log.classList.add('log_record');
-        log.innerHTML = `- <span class="log_record_l">${fighters_list[current_enemy].name}</span> hit <span class="log_record_w">${document.getElementsByClassName('player_name')[0].innerHTML}</span> in the ${limb_names[e_attacking]} and dealt ${limb_list[e_attacking] * e_crit} damage`;
+        log.innerHTML = `- <span class="log_record_l">${fighters_list[current_enemy].name}</span> hit <span class="log_record_w">${document.getElementsByClassName('player_name')[0].innerHTML}</span> in the ${limb_names[e_attacking]} and dealt ${Math.round(limb_list[e_attacking] * e_crit * e_mul)} damage`;
         document.getElementsByClassName('log')[0].appendChild(log);
     }
     else
@@ -248,9 +303,9 @@ function handle_attack()
         log.innerHTML = `- <span class="log_record_l">${fighters_list[current_enemy].name}</span> tried to hit <span class="log_record_w">${document.getElementsByClassName('player_name')[0].innerHTML}</span> in the ${limb_names[e_attacking]} but faced defense`;
         document.getElementsByClassName('log')[0].appendChild(log);
     }
-    if (!(e_defending.includes(attacking[0])))
+    if (!(e_defending.includes(attacking[0])) || p_crit <= 1.1)
     {
-        e_hp -= limb_list[attacking[0]] * p_crit;
+        e_hp -= limb_list[attacking[0]] * p_crit * p_mul;
         if (e_hp < 0)
         {
             e_hp = 0;
@@ -259,11 +314,11 @@ function handle_attack()
         let dmg = document.createElement('div');
         if (p_crit <= 1.1)
         {
-            dmg.innerHTML = `-${limb_list[attacking[0]]}`;
+            dmg.innerHTML = `-${Math.round(limb_list[attacking[0]] * p_mul)}`;
         }
         else
         {
-            dmg.innerHTML = `CRIT! -${limb_list[attacking[0]] * p_crit}`;
+            dmg.innerHTML = `CRIT! -${Math.round(limb_list[attacking[0]] * p_crit * p_mul)}`;
         }
         dmg.classList.add('damage');
         dmg.style.animationName = 'damage_motion';
@@ -271,7 +326,7 @@ function handle_attack()
 
         let log = document.createElement('div');
         log.classList.add('log_record');
-        log.innerHTML = `- <span class="log_record_w">${document.getElementsByClassName('player_name')[0].innerHTML}</span> hit <span class="log_record_l">${fighters_list[current_enemy].name}</span> in the ${limb_names[attacking[0]]} and dealt ${limb_list[attacking[0]] * p_crit} damage`;
+        log.innerHTML = `- <span class="log_record_w">${document.getElementsByClassName('player_name')[0].innerHTML}</span> hit <span class="log_record_l">${fighters_list[current_enemy].name}</span> in the ${limb_names[attacking[0]]} and dealt ${Math.round(limb_list[attacking[0]] * p_crit * p_mul)} damage`;
         document.getElementsByClassName('log')[0].appendChild(log);
     }
     else

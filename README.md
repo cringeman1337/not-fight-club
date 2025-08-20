@@ -1,7 +1,5 @@
 # FIGHTING_CLUB
 
-WARNING! ALL THE COMMITS WERE MADE AFTER MOST OF THE GAME WAS DEVELOPED (11.08.2025 - 19.08.2025), SO THEY MAY NOT CORRECTLY DEPICT DEVELOPMENT PROCESS
-
 - All the fighters images were downloaded from the internet and downscaled in MSPaint
 - Fallout-style body chart was cropped from IGI2 screenshot (https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.old-games.ru%2Fgame%2Fscreenshots%2F6575.html&psig=AOvVaw33VnaWSSX4bR-IPcAXZYKG&ust=1755768850465000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCIiBwuuKmY8DFQAAAAAdAAAAABAb) with neural upscale applied here: https://ai.nero.com/image-upscaler. Colorized using this: https://slade.mancubus.net/
 - Custom text generated here: https://c.eev.ee/doom-text-generator
