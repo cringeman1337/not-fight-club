@@ -465,6 +465,8 @@ function update_limbs()
 
 function update_stats()
 {
+    document.getElementsByClassName('fight_button')[0].blur(); //prevent pressing Space from re-rolling this function
+
     current_enemy = Math.floor(Math.random() * (23 + 1));
     document.getElementsByClassName('player_name')[0].innerHTML = document.getElementsByClassName('fighter_menu_title')[0].innerHTML;
     document.getElementsByClassName('enemy_name')[0].innerHTML = fighters_list[current_enemy].name;
