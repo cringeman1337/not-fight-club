@@ -278,7 +278,7 @@ function handle_attack()
     {
         let log = document.createElement('div');
         log.classList.add('log_record');
-        log.innerHTML = `- <span class="log_record_w">${document.getElementsByClassName('player_name')[0].innerHTML}</span> tried to hit <span class="log_record_l">${fighters_list[current_enemy].name}</span> in the ${limb_names[attacking[0]]} but faces defense`;
+        log.innerHTML = `- <span class="log_record_w">${document.getElementsByClassName('player_name')[0].innerHTML}</span> tried to hit <span class="log_record_l">${fighters_list[current_enemy].name}</span> in the ${limb_names[attacking[0]]} but faced defense`;
         document.getElementsByClassName('log')[0].appendChild(log);
     }
 
