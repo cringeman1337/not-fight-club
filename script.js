@@ -124,6 +124,37 @@ let fighters_list = [
         hp : 75,
         image : "url('assets/images/fighters/pope.jpg')"
     },
+
+    {
+        name : 'Maestro',
+        hp : 100,
+        image : "url('assets/images/fighters/evgenij.png')"
+    },
+    {
+        name : 'Quentin Tarantino',
+        hp : 125,
+        image : "url('assets/images/fighters/quentin.png')"
+    },
+    {
+        name : 'Kyle Rittenhouse',
+        hp : 120,
+        image : "url('assets/images/fighters/kyle.jpg')"
+    },
+    {
+        name : 'Fentanyl Zombie',
+        hp : 75,
+        image : "url('assets/images/fighters/zombie.jpg')"
+    },
+    {
+        name : 'Scarface',
+        hp : 130,
+        image : "url('assets/images/fighters/scarface.jpg')"
+    },
+    {
+        name : 'Vince Desi',
+        hp : 110,
+        image : "url('assets/images/fighters/vince.jpg')"
+    },
 ]
 let limb_list = {
     '0' : 25,
@@ -142,7 +173,7 @@ let limb_names = {
     '5' : 'right leg'
 }
 let fighters = document.getElementsByClassName('fighter_card');
-let fighters_size = 24;
+let fighters_size = 30;
 let selected_fighter = 6;
 let current_enemy = 0;
 let battle_player_fighter = document.getElementsByClassName('player_avatar');
@@ -467,7 +498,7 @@ function update_stats()
 {
     document.getElementsByClassName('fight_button')[0].blur(); //prevent pressing Space from re-rolling this function
 
-    current_enemy = Math.floor(Math.random() * (23 + 1));
+    current_enemy = Math.floor(Math.random() * (fighters_size));
     document.getElementsByClassName('player_name')[0].innerHTML = document.getElementsByClassName('fighter_menu_title')[0].innerHTML;
     document.getElementsByClassName('enemy_name')[0].innerHTML = fighters_list[current_enemy].name;
     p_hp = fighters_list[selected_fighter].hp
