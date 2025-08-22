@@ -573,6 +573,10 @@ function update_stats()
     document.getElementsByClassName('fight_button')[0].blur(); //prevent pressing Space from re-rolling this function
 
     current_enemy = Math.floor(Math.random() * (fighters_size));
+    while (current_enemy == selected_fighter)
+    {
+        current_enemy = Math.floor(Math.random() * (fighters_size));
+    }
 
     localStorage.setItem('cur_enemy', current_enemy);
 
