@@ -208,6 +208,66 @@ let cooldown = 0;
 
 
 
+
+
+
+
+function handle_cookies()
+{
+    let saved = localStorage.getItem('saved')
+    
+    update_cards();
+
+    if (!(localStorage.getItem('player_fighter')))
+    {
+        localStorage.setItem('player_fighter', 6);
+    }
+    
+    if (saved == 1)
+    {
+        set_page(1);
+        current_name = localStorage.getItem('fighter_name');
+        document.getElementsByClassName('name_field')[0].value = '';
+        document.getElementsByClassName('fighter_menu_title')[0].innerHTML = current_name;
+        document.getElementsByClassName('player_name')[0].innerHTML = current_name;
+        selected_fighter = localStorage.getItem('player_fighter');
+        document.getElementsByClassName('cur_fighter')[0].style.backgroundImage = fighters_list[selected_fighter].image;
+
+        document.getElementsByClassName('win_list')[0].innerHTML = localStorage.getItem('wins')
+        document.getElementsByClassName('loss_list')[0].innerHTML = localStorage.getItem('losses')
+
+        if (localStorage.getItem('battle_saved') == 1)
+        {
+            set_page(2);
+            current_enemy = localStorage.getItem('cur_enemy')
+            document.getElementsByClassName('enemy_name')[0].innerHTML = fighters_list[current_enemy].name;
+            p_hp = localStorage.getItem('player_hp');
+            e_hp = localStorage.getItem('enemy_hp');
+            p_ihp = fighters_list[selected_fighter].hp;
+            e_ihp = fighters_list[current_enemy].hp;
+            battle_player_fighter[0].style.backgroundImage = fighters_list[selected_fighter].image;
+            battle_enemy_fighter[0].style.backgroundImage = fighters_list[current_enemy].image;
+            battle_player_fighter[0].classList.remove('dead');
+            battle_enemy_fighter[0].classList.remove('dead');
+            player_splatter[0].style.animationName = null;
+            enemy_splatter[0].style.animationName = null;
+            // player_splatter[0].classList.remove('splatter_visible');
+            // enemy_splatter[0].classList.remove('splatter_visible');
+            p_hp_bar[0].style.width = `${100 * p_hp / p_ihp}%`;
+            e_hp_bar[0].style.width = `${100 * e_hp / e_ihp}%`;
+            // document.getElementsByClassName('w')[0].classList.remove('result_hide');
+            // document.getElementsByClassName('l')[0].classList.remove('result_hide');
+
+            document.getElementsByClassName('log')[0].innerHTML = localStorage.getItem('logs');
+            document.getElementsByClassName('player_hp')[0].innerHTML = '';
+            document.getElementsByClassName('enemy_hp')[0].innerHTML = '';
+        }
+    }
+    localStorage.setItem('saved', 1);
+}
+
+
+
 function turn_slider()
 {
     slider_direction = -slider_direction;
@@ -312,6 +372,7 @@ function handle_attack()
         {
             p_hp_bar[0].style.width = `${100 * (p_hp / p_ihp)}%`;
         }
+        localStorage.setItem('player_hp', p_hp);
         let dmg = document.createElement('div');
         if (e_crit <= 1.1)
         {
@@ -348,6 +409,7 @@ function handle_attack()
         {
             e_hp_bar[0].style.width = `${100 * (e_hp / e_ihp)}%`;
         }
+        localStorage.setItem('enemy_hp', e_hp);
         let dmg = document.createElement('div');
         if (p_crit <= 1.1)
         {
@@ -384,10 +446,14 @@ function handle_attack()
     {
         enemy_dead();
     }
+
+    localStorage.setItem('logs', document.getElementsByClassName('log')[0].innerHTML);
 }
 
 function enemy_dead()
 {
+    localStorage.setItem('battle_saved', 0);
+
     battle_enemy_fighter[0].classList.add('dead');
     enemy_splatter[0].classList.add('splatter_visible');
     enemy_splatter[0].style.animationName = 'splatter_motion';
@@ -402,10 +468,14 @@ function enemy_dead()
     log.classList.add('log_record_w');
     log.innerHTML = `${fighters_list[current_enemy].name} is dead! What a loser!`;
     document.getElementsByClassName('log')[0].appendChild(log);
+
+    localStorage.setItem('wins', document.getElementsByClassName('win_list')[0].innerHTML);
 }
 
 function player_dead()
 {
+    localStorage.setItem('battle_saved', 0);
+
     battle_player_fighter[0].classList.add('dead');
     player_splatter[0].classList.add('splatter_visible');
     player_splatter[0].style.animationName = 'splatter_motion';
@@ -420,6 +490,8 @@ function player_dead()
     log.classList.add('log_record_l');
     log.innerHTML = `${document.getElementsByClassName('player_name')[0].innerHTML} is dead! What a loser!`;
     document.getElementsByClassName('log')[0].appendChild(log);
+
+    localStorage.setItem('losses', document.getElementsByClassName('loss_list')[0].innerHTML);
 }
 
 function select_defense(n)
@@ -496,9 +568,14 @@ function update_limbs()
 
 function update_stats()
 {
+    localStorage.setItem('battle_saved', 1);
+
     document.getElementsByClassName('fight_button')[0].blur(); //prevent pressing Space from re-rolling this function
 
     current_enemy = Math.floor(Math.random() * (fighters_size));
+
+    localStorage.setItem('cur_enemy', current_enemy);
+
     document.getElementsByClassName('player_name')[0].innerHTML = document.getElementsByClassName('fighter_menu_title')[0].innerHTML;
     document.getElementsByClassName('enemy_name')[0].innerHTML = fighters_list[current_enemy].name;
     p_hp = fighters_list[selected_fighter].hp
@@ -521,11 +598,17 @@ function update_stats()
     document.getElementsByClassName('log')[0].innerHTML = '';
     document.getElementsByClassName('player_hp')[0].innerHTML = '';
     document.getElementsByClassName('enemy_hp')[0].innerHTML = '';
+
+    localStorage.setItem('logs', document.getElementsByClassName('log')[0].innerHTML);
+    localStorage.setItem('player_hp', p_hp);
+    localStorage.setItem('enemy_hp', e_hp);
+
 }
 
 function set_fighter_num(n)
 {
     selected_fighter = n;
+    localStorage.setItem('player_fighter', selected_fighter)
 }
 
 function set_fighter()
@@ -549,7 +632,7 @@ function set_name(name)
         console.log(current_name);
         document.getElementsByClassName('name_field')[0].value = '';
         document.getElementsByClassName('fighter_menu_title')[0].innerHTML = name;
-
+        localStorage.setItem('fighter_name', current_name);
         set_page(1);
     }
 }

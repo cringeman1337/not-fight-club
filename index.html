@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
 </head>
-<body>
+<body onload="handle_cookies()">
     <section class="basic_size registration shown">
         <div class="game_logo"></div>
         <div class="blue_window_generic name_field_window">
             <div class="name_field_title"></div>
             <div class="name_field_container">
                 <input class="name_field" type="text" maxlength="18">
-                <button class="name_button" onclick="set_name(this.previousElementSibling.value); update_cards(); set_fighter()">OK</button>
+                <button class="name_button" onclick="set_name(this.previousElementSibling.value); set_fighter()">OK</button>
             </div>
             <div class="name_window_bit"></div>
         </div>
