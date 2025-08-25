@@ -214,6 +214,7 @@ let cooldown = 0;
 
 function handle_cookies()
 {
+    
     let saved = localStorage.getItem('saved')
     
     update_cards();
