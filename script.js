@@ -206,7 +206,7 @@ let slider_dist = 50;
 let cooldown = 0;
 
 
-
+let deploy = 0; // added to deploy on gh-pages
 
 
 
@@ -214,7 +214,6 @@ let cooldown = 0;
 
 function handle_cookies()
 {
-    
     let saved = localStorage.getItem('saved')
     
     update_cards();
